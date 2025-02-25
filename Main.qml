@@ -32,63 +32,29 @@ ApplicationWindow {
             }
         }
 
-        // You could just use NativeWebView {} anywhere here, but i wanted to test the integration
-        // in a more complex app, like scrolling the view etc.
-        ScrollView {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            clip: true
+		NativeWebView {
+			id: webView
 
-            ColumnLayout {
-                spacing: 20
-                width: parent.width
+			Layout.fillHeight: true
+			Layout.fillWidth: true
+			url: "https://www.google.it/maps"
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    color: "lightblue"
-                    height: 100
+			WindowContainer {
+				id: windowContainer
+				x: 20
+				y: 20
+				width: 200
+				height: 100
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Item above WebView"
-                    }
-                }
-                Item {
-                    Layout.fillWidth: true
-                    height: 600
-
-                    NativeWebView {
-                        id: webView
-
-                        anchors.fill: parent
-                        url: "https://mollo.io"
-                    }
-                }
-                Rectangle {
-                    Layout.fillWidth: true
-                    color: "lightgreen"
-                    height: 100
-
-                    Text {
-                        anchors.centerIn: parent
-                        text: "Item below WebView"
-                    }
-                }
-                Repeater {
-                    model: 5
-
-                    delegate: Rectangle {
-                        Layout.fillWidth: true
-                        color: Qt.rgba(Math.random(), Math.random(), Math.random(), 1)
-                        height: 100
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: "Scrollable Item " + (index + 1)
-                        }
-                    }
-                }
-            }
-        }
-    }
+				window: Window {
+					Rectangle {
+						id: childItem
+						width: windowContainer.width
+						height: windowContainer.height
+						color: "blue"
+					}
+				}
+			}
+		}
+	}
 }
